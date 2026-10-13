@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#00d6b4">
-  <meta name="description" content="우리 동네의 작은 이야기를 세상에 하나뿐인 게임으로. 8개의 미션을 따라 게임을 상상하고, 5,000자 이상의 AI 게임 제작 프롬프트를 완성해요.">
+  <meta name="description" content="우리 동네의 작은 이야기를 세상에 하나뿐인 게임으로. 일상 속 소재로 게임을 상상하고, AI에게 전달할 제작 설명을 완성해요.">
   <title>우리 동네 플레이어 · 게임 상상 연구소</title>
   <link rel="icon" href="./assets/flag.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
@@ -79,14 +79,14 @@
       <div class="result-top"><div><h2 id="resultTitle">상상이 게임의<br><span>설계도가 되었어요.</span></h2><p>우리 팀의 답변을 확인하고, 프롬프트를 복사해요.</p></div><div class="result-stamp" aria-hidden="true">IDEA<br>→ GAME<span>✦</span></div></div>
       <div class="result-layout">
         <div class="summary-card"><h3>우리 팀이 정한 이야기</h3><div id="summaryList"></div><div id="reviewNotes"></div><button class="btn btn-outline full-width" id="backToEdit">← 미션으로 돌아가 다듬기</button></div>
-        <div class="prompt-card"><div class="prompt-header"><div><span class="mini-label">READY TO COPY</span><h3>AI 게임 제작 프롬프트</h3></div><div class="char-badge"><strong id="charCount">0자</strong><span>공백 포함 · 5,000자 이상</span></div></div><div class="prompt-actions"><button class="btn btn-dark" id="copyButton">전체 프롬프트 복사 <span aria-hidden="true">↗</span></button><button class="btn btn-outline" id="downloadButton">↓ TXT 저장</button><button class="text-button" id="briefButton">아이디어 요약 저장</button></div><p class="prompt-note">우리 팀이 비워 둔 항목은 ‘제안 기본값’으로 표시돼요. 제작 전에 멘토와 함께 확인해 주세요.</p><pre id="promptOutput" tabindex="0" aria-label="생성된 전체 제작 프롬프트"></pre></div>
+        <div class="prompt-card"><div class="prompt-header"><div><span class="mini-label">READY TO COPY</span><h3>AI 게임 제작 프롬프트</h3></div><div class="char-badge"><strong id="charCount">0자</strong></div></div><div class="prompt-actions"><button class="btn btn-dark" id="copyButton">전체 프롬프트 복사 <span aria-hidden="true">↗</span></button><button class="btn btn-outline" id="downloadButton">↓ TXT 저장</button><button class="text-button" id="briefButton">아이디어 요약 저장</button></div><p class="prompt-note">우리 팀이 비워 둔 항목은 ‘제안 기본값’으로 표시돼요. 제작 전에 멘토와 함께 확인해 주세요.</p><pre id="promptOutput" tabindex="0" aria-label="생성된 전체 제작 프롬프트"></pre></div>
       </div>
     </section>
   </main>
 
   <footer><strong>우리 동네 플레이어</strong><span>성남시 아동 AI 게임 창작 프로젝트</span></footer>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
-  <dialog id="howDialog"><div class="dialog-top"><span class="mini-label">HOW TO PLAY</span><button class="close-dialog" aria-label="도움말 닫기">×</button></div><h2>상상부터 복사까지,<br>차근차근 함께 해요.</h2><ol class="guide-list"><li><strong>일상 속 장면 찾기</strong><p>특별한 사건이 아니어도 좋아요. 기다리던 간식, 친구와 걷던 길, 사라진 물건을 떠올려 보세요.</p></li><li><strong>8개의 미션 채우기</strong><p>예시 칩을 눌러 시작한 뒤 우리 이야기로 바꿔 써요. ‘더 상상하기’에는 작은 디테일을 더할 수 있어요.</p></li><li><strong>아이디어 모아 보기</strong><p>답변과 비워 둔 항목을 확인해요. 원하면 앞 단계로 돌아가 수정할 수 있어요.</p></li><li><strong>멘토와 AI에 전달하기</strong><p>5,000자 이상의 제작 프롬프트를 복사해요. 한 기능씩 만들고, 직접 플레이하며 바꿔 나가요.</p></li></ol><p class="dialog-tip">예시 입력은 자동으로 답을 정해 주는 기능이 아니에요. 우리 팀의 생각으로 바꿔 주세요.</p><button class="btn btn-mint close-dialog">알겠어요!</button></dialog>
+  <dialog id="howDialog"><div class="dialog-top"><span class="mini-label">HOW TO PLAY</span><button class="close-dialog" aria-label="도움말 닫기">×</button></div><h2>상상부터 복사까지,<br>차근차근 함께 해요.</h2><ol class="guide-list"><li><strong>일상 속 장면 찾기</strong><p>특별한 사건이 아니어도 좋아요. 기다리던 간식, 친구와 걷던 길, 사라진 물건을 떠올려 보세요.</p></li><li><strong>미션 채우기</strong><p>예시 칩을 눌러 시작한 뒤 우리 이야기로 바꿔 써요. ‘더 상상하기’에는 작은 디테일을 더할 수 있어요.</p></li><li><strong>아이디어 모아 보기</strong><p>답변과 비워 둔 항목을 확인해요. 원하면 앞 단계로 돌아가 수정할 수 있어요.</p></li><li><strong>멘토와 AI에 전달하기</strong><p>완성한 제작 프롬프트를 복사해요. 한 기능씩 만들고, 직접 플레이하며 바꿔 나가요.</p></li></ol><p class="dialog-tip">예시 입력은 자동으로 답을 정해 주는 기능이 아니에요. 우리 팀의 생각으로 바꿔 주세요.</p><button class="btn btn-mint close-dialog">알겠어요!</button></dialog>
   <dialog id="mentorDialog"><div class="dialog-top"><span class="mini-label">MENTOR NOTES</span><button class="close-dialog" aria-label="멘토 가이드 닫기">×</button></div><h2>아이의 결정이<br>게임에 남도록.</h2><div class="mentor-notes"><p><strong>질문은 함께, 결정은 아이들이.</strong>일상 이야기를 듣고 아이가 고른 소재·규칙·표현을 기록해 주세요. 생활 문제를 해결하는 게임도, 그냥 재미있는 게임도 모두 좋아요.</p><p><strong>한 번에 한 미션씩.</strong>처음부터 모두 완성할 필요는 없어요. 핵심 질문을 먼저 채우고 ‘더 상상하기’는 수업 속도에 맞춰 진행해 주세요.</p><p><strong>공통 스타터는 미리 준비.</strong>JavaScript·Phaser·Vite 공통 틀을 사용합니다. 2D, 한 레벨, 1~3분, 시작·플레이·결과·다시 하기 흐름을 기본으로 해요.</p><p><strong>답변과 기본값을 확인.</strong>빈 선택 항목은 프롬프트 안에 제안 기본값으로 남습니다. 모순되는 규칙이나 숫자는 아이들과 정한 뒤 구현해 주세요.</p><p><strong>작동하는 버전을 저장.</strong>아이디어 JSON, 프롬프트 TXT, 게임 소스·웹 실행본·자산 출처를 회기별로 보관합니다. AI 계정 사용과 게시 준비는 멘토가 관리해요.</p><p><strong>자동 저장은 이 브라우저에만.</strong>공용 기기를 바꾸거나 브라우저 데이터를 지우기 전에 ‘아이디어 파일 저장’을 사용해 주세요. 앱에서 실제 이름·연락처는 요청하지 않습니다.</p></div><button class="btn btn-mint close-dialog">확인했어요</button></dialog>
 </body>
 </html>
