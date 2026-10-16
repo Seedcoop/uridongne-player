@@ -1,5 +1,5 @@
 import { STEPS, FIELDS, EXAMPLES } from './questions.js';
-import { buildPrompt, countCharacters } from './prompt-builder.js';
+import { buildPrompt, countCharacters } from './prompt-builder.js?v=20261016-safety-1';
 
 const STORAGE_KEY = 'our-neighborhood-player-lab:v1';
 const byId = id => document.getElementById(id);
@@ -11,6 +11,7 @@ let state = {version:1, answers:blank(), step:0, view:'home', details:{}};
 let prompt = '';
 let saveTimer;
 let toastTimer;
+let copyResetTimer;
 try {
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
   if (saved?.version === 1 && saved.answers && typeof saved.answers === 'object') {
@@ -110,11 +111,14 @@ function showResult(push=true){
   state.view='result';prompt=buildPrompt(state.answers);
   byId('promptOutput').textContent=prompt;
   const count=countCharacters(prompt);
+  const safety=globalThis.WorkshopPromptSafety.review(Object.values(state.answers).join('\n'));
   byId('charCount').textContent=`${count.toLocaleString('ko-KR')}자`;
-  const ready=missingRequired().length===0&&count>=5000;
-  document.querySelector('.prompt-note').textContent=ready?'우리 팀이 비워 둔 항목은 ‘제안 기본값’으로 표시돼요. 제작 전에 멘토와 함께 확인해 주세요.':`꼭 정할 질문 ${missingRequired().length}개가 남았어요. 아이디어 요약의 질문을 눌러 채우면 전체 프롬프트를 복사할 수 있어요.`;
+  const ready=!safety.blocked&&missingRequired().length===0&&count>=5000;
+  document.querySelector('.prompt-note').textContent=safety.blocked?'아동·청소년 안전 기준에 맞지 않는 표현이 있어 제작 프롬프트를 보류했어요. 피·잔혹성·성인표현 등을 뺀 안전한 아이디어로 바꾼 뒤 다시 완성해 주세요. 원래 답변은 입력과 아이디어 파일에 남아 있어요.':ready?'모든 제작 프롬프트에 아동·청소년 윤리·안전 지침이 포함돼요. 비워 둔 항목은 ‘제안 기본값’으로 표시돼요. 제작 전에 무드보드와 답변을 멘토와 함께 확인해 주세요.':`꼭 정할 질문 ${missingRequired().length}개가 남았어요. 아이디어 요약의 질문을 눌러 채우면 전체 프롬프트를 복사할 수 있어요.`;
   byId('copyButton').disabled=!ready;byId('downloadButton').disabled=!ready;
-  byId('copyButton').title=ready?'전체 프롬프트를 복사합니다':'꼭 정할 질문을 먼저 채워 주세요';
+  clearTimeout(copyResetTimer);
+  byId('copyButton').textContent=safety.blocked?'안전 수정 필요':'전체 프롬프트 복사 ↗';
+  byId('copyButton').title=safety.blocked?'안전 기준에 맞게 답변을 바꿔 주세요':ready?'전체 프롬프트를 복사합니다':'꼭 정할 질문을 먼저 채워 주세요';
   byId('downloadButton').title=byId('copyButton').title;
   summary();setView();save();if(push)pushLocation();
   document.title='완성된 제작 프롬프트 | 우리 동네 플레이어';scrollTo('resultSection');
@@ -129,7 +133,7 @@ async function copyPrompt(){
   try{await navigator.clipboard.writeText(prompt);copied=true;}catch{
     const helper=document.createElement('textarea');helper.value=prompt;helper.setAttribute('readonly','');helper.style.cssText='position:fixed;left:-9999px;top:0';document.body.append(helper);helper.select();try{copied=document.execCommand('copy');}catch{}helper.remove();
   }
-  if(copied){toast('전체 프롬프트를 복사했어요. 멘토와 함께 AI에 붙여 넣어 주세요.');byId('copyButton').textContent='복사했어요 ✓';setTimeout(()=>{byId('copyButton').textContent='전체 프롬프트 복사 ↗';},2200);}
+  if(copied){toast('전체 프롬프트를 복사했어요. 멘토와 함께 AI에 붙여 넣어 주세요.');byId('copyButton').textContent='복사했어요 ✓';clearTimeout(copyResetTimer);copyResetTimer=setTimeout(()=>{byId('copyButton').textContent='전체 프롬프트 복사 ↗';},2200);}
   else{const range=document.createRange();range.selectNodeContents(byId('promptOutput'));const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);toast('자동 복사가 어려워요. 선택된 글을 직접 복사하거나 TXT로 저장해 주세요.');}
 }
 function addExampleDialog(){
